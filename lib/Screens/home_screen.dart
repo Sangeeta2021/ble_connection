@@ -13,7 +13,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void startScan() {
     devicesList.clear();
     flutterBlue.startScan(timeout: Duration(seconds: 5));
-
     flutterBlue.scanResults.listen((results) {
       for (ScanResult r in results) {
         if (!devicesList.contains(r.device)) {

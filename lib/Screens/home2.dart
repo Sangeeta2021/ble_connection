@@ -28,7 +28,9 @@ class _Home2State extends State<Home2> {
     flutterBlue.scanResults.listen((results) {
       for (ScanResult r in results) {
         print("Device Found: ${r.device.name} with RSSI: ${r.rssi}");
-        if (r.device.name == "Your_Scale") {
+        //we need to add our device name which we want to connect
+        if (r.device.name == "Mivi DuoPods F30") {
+          print("connect device is : ${r.device.name}");
           //stop scan
           flutterBlue.stopScan();
           connectToDevice(r.device);
@@ -40,38 +42,61 @@ class _Home2State extends State<Home2> {
 
 //function for connecting to the device
   void connectToDevice(BluetoothDevice device) async {
-    print("Connecting to device: ${device.name}");
-    await device.connect();
-    setState(() {
-      connectedDevice = device;
-    });
-    print("Connected to ${device.name}");
-  }
-
-  void discoverServices(BluetoothDevice device) async {
-    List<BluetoothService> services = await device.discoverServices();
-    services.forEach((service) {
-      print('Service found: ${service.uuid}');
-      service.characteristics.forEach((characteristic) {
-        print('characteristic found: ${characteristic.uuid}');
-        if (characteristic.properties.read) {
-          setState(() {
-            weightCharacteristic = characteristic;
-          });
-          readWeightData(characteristic);
-        }
+    try {
+      print("Connecting to device: ${device.name}");
+      await device.connect(timeout: Duration(seconds: 10));
+      setState(() {
+        connectedDevice = device;
       });
+      print("Connected to ${device.name}");
+      discoverServices(device);
+    } catch (e) {
+      print("Error while connectiong: $e");
+    }
+
+    device.state.listen((state) {
+      if (state == BluetoothDeviceState.disconnected) {
+        print("Device Disconnected");
+      }
     });
   }
 
+  
+  
+  //function for discovering the services of the device
+  void discoverServices(BluetoothDevice device) async {
+    try {
+      List<BluetoothService> services = await device.discoverServices();
+      services.forEach((service) {
+        print('Service found: ${service.uuid}');
+        service.characteristics.forEach((characteristic) {
+          print('Characteristic found: ${characteristic.uuid}');
+          if (characteristic.properties.read) {
+            setState(() {
+              weightCharacteristic = characteristic;
+            });
+            readWeightData(characteristic);
+          }
+        });
+      });
+    } catch (e) {
+      print('Error discovering services: $e');
+    }
+  }
+
+//function to get weight from the device
   void readWeightData(BluetoothCharacteristic characteristic) async {
-    var value = await characteristic.read();
-    // Convert the byte data into meaningful weight value
-    int weightValue = value[0];
-    setState(() {
-      weight = "$weightValue kg";
-    });
-    print('Weight: $weight kg');
+    try {
+      var value = await characteristic.read();
+      // Convert the byte data into meaningful weight value
+      int weightValue = value[0];
+      setState(() {
+        weight = "$weightValue kg";
+      });
+      print('Weight: $weight kg');
+    } catch (e) {
+      print("Error in reading data: $e");
+    }
   }
 
   @override
@@ -96,12 +121,13 @@ class _Home2State extends State<Home2> {
               height: 20,
             ),
             ElevatedButton(
-                onPressed: () {
-                  weightCharacteristic != null
-                      ? readWeightData(weightCharacteristic!)
-                      : null;
-                },
-                child: Text("Refresh Weight"),),
+              onPressed: () {
+                weightCharacteristic != null
+                    ? readWeightData(weightCharacteristic!)
+                    : null;
+              },
+              child: Text("Refresh Weight"),
+            ),
           ],
         ),
       ),
