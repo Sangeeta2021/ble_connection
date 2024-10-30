@@ -77,7 +77,7 @@ class _Home4State extends State<Home4> {
   // Function to check if the characteristic is the weight characteristic
   bool _isWeightCharacteristic(BluetoothCharacteristic characteristic) {
     //need to add our weight machine uuid
-    const weightCharacteristicUUID = 'your_weight_characteristic_uuid_here';
+    const weightCharacteristicUUID = 'B4:56:5D:5E:82:C8';
     return characteristic.uuid.toString() == weightCharacteristicUUID;
   }
 
