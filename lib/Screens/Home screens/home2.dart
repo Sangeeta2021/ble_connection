@@ -1,3 +1,4 @@
+import 'package:bluetooth_connect/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
@@ -103,6 +104,7 @@ class _Home2State extends State<Home2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: themeColor,
         title: Text("BLE Weight Machine"),
         centerTitle: true,
       ),

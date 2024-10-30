@@ -1,3 +1,4 @@
+import 'package:bluetooth_connect/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple.shade300,
+        backgroundColor: themeColor,
         centerTitle: true,
         title: Text("Bluetooth Devices")),
       body: Padding(
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: ListTile(
                     
-                      tileColor: Colors.purple.shade200,
+                      tileColor: themeColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8)
                       ),

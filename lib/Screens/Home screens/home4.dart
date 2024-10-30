@@ -1,3 +1,4 @@
+import 'package:bluetooth_connect/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -113,7 +114,7 @@ class _Home4State extends State<Home4> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple.shade100,
+        backgroundColor: themeColor,
         title: Text('BLE Weight Machine'),
         centerTitle: true,
       ),
@@ -127,7 +128,7 @@ class _Home4State extends State<Home4> {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    tileColor: Colors.purple.shade100,
+                    tileColor: themeColor,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     title: Text(devicesList[index].name.isEmpty
                         ? 'Unknown Device'
