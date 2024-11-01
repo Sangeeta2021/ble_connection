@@ -1,3 +1,7 @@
+
+//if we clcik on any device navigate  to another screen
+
+
 import 'package:bluetooth_connect/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -6,6 +10,8 @@ import 'package:permission_handler/permission_handler.dart';
 import '../device_screen.dart';
 
 class Home5 extends StatefulWidget {
+  const Home5({super.key});
+
   @override
   _Home5State createState() => _Home5State();
 }

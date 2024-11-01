@@ -3,6 +3,8 @@ import 'package:flutter_blue/flutter_blue.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Home3 extends StatefulWidget {
+  const Home3({super.key});
+
   @override
   _Home3State createState() => _Home3State();
 }

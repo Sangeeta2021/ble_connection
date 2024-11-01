@@ -1,11 +1,14 @@
+
 import 'package:bluetooth_connect/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class Home4 extends StatefulWidget {
+  const Home4({super.key});
+
   @override
-  _Home4State createState() => _Home4State();
+  State<Home4> createState() => _Home4State();
 }
 
 class _Home4State extends State<Home4> {
@@ -109,7 +112,6 @@ class _Home4State extends State<Home4> {
       print("Disconnected from device");
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
