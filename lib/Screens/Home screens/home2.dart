@@ -31,7 +31,7 @@ class _Home2State extends State<Home2> {
         print("Device Found: ${r.device.name} with RSSI: ${r.rssi}");
         //we need to add our device name which we want to connect
         if (r.device.name == "MY_SCALE") {
-          print("connect device is : ${r.device.name}");
+          print("connected device is : ${r.device.name}");
           //stop scan
           flutterBlue.stopScan();
           connectToDevice(r.device);

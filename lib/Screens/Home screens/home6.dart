@@ -16,7 +16,7 @@ class _Home6State extends State<Home6> {
   FlutterBlue flutterBlue = FlutterBlue.instance;
   List<BluetoothDevice> deviceList = [];
   Map<String, BluetoothDevice> connectedDevices = {};
-  Map<String, String> serviceUUIDs = {}; // for storin uuid
+  Map<String, String> serviceUUIDs = {}; // for storing uuid
   Map<String, String> characteristicUUIDs = {}; //for storing charastic uuid
   BluetoothCharacteristic? targetCharacteristic;
   String? deviceWeight;
@@ -103,19 +103,22 @@ class _Home6State extends State<Home6> {
         itemBuilder: (context, index) {
           var device = deviceList[index];
           bool isConnected = connectedDevices.containsKey(device.id.id);
-          return ListTile(
-            tileColor: themeColor,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            title: Text(device.name.isEmpty ? device.name : "Unknown Device"),
-            subtitle: Text(device.id.id),
-            trailing: ElevatedButton(
-              onPressed: () {
-                isConnected
-                    ? disconnectDevice(device)
-                    : connectToDevice(device);
-              },
-              child: Text(isConnected ? "Dixconnect" : "Connect"),
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 16),
+            child: ListTile(
+              tileColor: themeColor,
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              title: Text(device.name.isEmpty ? device.name : "Unknown Device"),
+              subtitle: Text(device.id.id),
+              trailing: ElevatedButton(
+                onPressed: () {
+                  isConnected
+                      ? disconnectDevice(device)
+                      : connectToDevice(device);
+                },
+                child: Text(isConnected ? "Dixconnect" : "Connect"),
+              ),
             ),
           );
         });
@@ -125,11 +128,13 @@ class _Home6State extends State<Home6> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text("BLE Connection"),
         backgroundColor: themeColor,
       ),
       body: Column(
         children: [
+          SizedBox(height: 20,),
           Expanded(child: buildDeviceList()),
           if(deviceWeight != null)...[
             Text("Weight: $deviceWeight kg"),
